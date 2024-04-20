@@ -15,7 +15,7 @@
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' }
 		})
-
+		
 		return await response.json()
 	}
 

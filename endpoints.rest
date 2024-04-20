@@ -13,11 +13,12 @@ POST http://localhost:{{port}}/api/todos
 Content-Type: application/json
 
 {
-  "item": "Finish the Assignment"
+  "item": "Finish the Assignment",
+  "complete": false
 }
 
 ### Toggle completed status of a todo
 
-PUT http://localhost:{{port}}/api/todos/1
+PUT http://localhost:{{port}}/api/todos/6622b7082b15215025c54aff
 
 
