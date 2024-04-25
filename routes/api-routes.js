@@ -10,6 +10,11 @@ const getCollection = async (dbName, collectionName) => {
     return client.db(dbName).collection(collectionName)
 }
 
+// const todos = [
+// 	{ id: 1, item: 'Learn JavaScript', complete: false },
+// 	{ id: 2, item: 'Learn Express', complete: false },
+// 	{ id: 3, item: 'Build a To Do App', complete: false }
+// ]
 
 // GET /api/todos
 
@@ -20,16 +25,30 @@ router.get('/', async (_, response) => {
 	
 })
 
+
+
 // POST /api/todos
 
-router.post('/', async (request, response) => {
-	const { item, complete } = request.body
 	// const id = todos.length + 1
 	// const complete = false
 	// todos.push({ id, item, complete })
+
+router.post('/', async (request, response) => {
+	const { item } = request.body
+	//const id = todos.length + 1
+	const complete = false
+	// todos.push({ id, item, complete })
 	const collection = await getCollection('todo-api', 'todo')
-	const result = await collection.insertOne({ item, complete: false })
+	
+	const result = await collection.insertOne({ item, complete })
+	const todo = await collection.find().toArray()
+	
+	const todoId = todo.map((todo, index) => {
+		return { todo, id: index +1 };
+	})
+	console.log(todoId)
 	response.json({ result })
+	
 })
 
 // PUT /api/todos/:id
