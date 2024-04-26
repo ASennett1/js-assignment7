@@ -38,6 +38,7 @@
 			})
 			li.appendChild(checkbox)
 		})
+		
 	}
 
 	displayTodos(await getTodos())

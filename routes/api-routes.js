@@ -21,7 +21,11 @@ const getCollection = async (dbName, collectionName) => {
 router.get('/', async (_, response) => {
 	const collection = await getCollection('todo-api', 'todo')
 	const todos = await collection.find().toArray()
-	response.json(todos)
+	const todoId = todos.map((todo) => {
+		return { ...todo, id: todo._id };
+	})
+	
+	response.json(todoId)
 	
 })
 
@@ -29,24 +33,12 @@ router.get('/', async (_, response) => {
 
 // POST /api/todos
 
-	// const id = todos.length + 1
-	// const complete = false
-	// todos.push({ id, item, complete })
-
 router.post('/', async (request, response) => {
 	const { item } = request.body
-	//const id = todos.length + 1
 	const complete = false
-	// todos.push({ id, item, complete })
 	const collection = await getCollection('todo-api', 'todo')
-	
 	const result = await collection.insertOne({ item, complete })
-	const todo = await collection.find().toArray()
 	
-	const todoId = todo.map((todo, index) => {
-		return { todo, id: index +1 };
-	})
-	console.log(todoId)
 	response.json({ result })
 	
 })
